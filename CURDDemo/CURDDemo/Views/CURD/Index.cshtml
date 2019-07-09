@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "Index";
+    List<CURDDemo.Models.MyTableModel> myTables = Model;
+}
+
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>Name</th>
+        <th>Value</th>
+        <th></th>
+    </tr>
+    @foreach(var item in myTables) {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Value</td>
+        </tr>
+    }
+</table>
+
