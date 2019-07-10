@@ -12,7 +12,7 @@ using System.Web.Mvc;
 namespace CURDDemo.Controllers {
     public class CURDController : Controller {
         private IDbConnection _db = new SqlConnection(ConfigurationManager.ConnectionStrings["MyDatabaseConnection"].ConnectionString);
-        
+
         // GET: CURD
         [HttpGet]
         public ActionResult Index() {
@@ -27,10 +27,10 @@ namespace CURDDemo.Controllers {
 
         // POST: CURD/Create
         [HttpPost]
-        public ActionResult Create(MyTableModel itme) {
+        public ActionResult Create(MyTableModel item) {
             try {
                 string query = "INSERT INTO MyTable VALUES(@Name,@Value)";
-                _db.Execute(query, itme);
+                _db.Execute(query, item);
                 return RedirectToAction("Index");
             } catch {
                 return View();
@@ -39,15 +39,21 @@ namespace CURDDemo.Controllers {
 
         // GET: CURD/Edit/5
         public ActionResult Edit(int id) {
-            return View();
+            string query = "SELECT * FROM MyTable Where Id = @Id";
+            List<MyTableModel> myTableList = _db.Query<MyTableModel>(query, new { id }).ToList();
+            if (myTableList.Any()) {
+                return View(myTableList.First());
+            } else {
+                return RedirectToAction("Index");
+            }
         }
 
         // POST: CURD/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection) {
+        public ActionResult Edit(MyTableModel item) {
             try {
-                // TODO: Add update logic here
-
+                string query = "UPDATE MyTable SET Name = @Name , Value= @Value WHere Id = @Id";
+                _db.Execute(query, item);
                 return RedirectToAction("Index");
             } catch {
                 return View();

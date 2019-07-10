@@ -173,6 +173,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\CURD\Index.cshtml" />
     <Content Include="Views\CURD\Create.cshtml" />
+    <Content Include="Views\CURD\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
