@@ -22,15 +22,15 @@ namespace CURDDemo.Controllers {
 
         // GET: CURD/Create
         public ActionResult Create() {
-            return View();
+            return View(new MyTableModel());
         }
 
         // POST: CURD/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection) {
+        public ActionResult Create(MyTableModel itme) {
             try {
-                // TODO: Add insert logic here
-
+                string query = "INSERT INTO MyTable VALUES(@Name,@Value)";
+                _db.Execute(query, itme);
                 return RedirectToAction("Index");
             } catch {
                 return View();
