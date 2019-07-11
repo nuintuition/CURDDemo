@@ -62,15 +62,9 @@ namespace CURDDemo.Controllers {
 
         // GET: CURD/Delete/5
         public ActionResult Delete(int id) {
-            return View();
-        }
-
-        // POST: CURD/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection) {
             try {
-                // TODO: Add delete logic here
-
+                string query = "DELETE FROM MyTable WHere Id = @Id";
+                _db.Execute(query, new { id });
                 return RedirectToAction("Index");
             } catch {
                 return View();
